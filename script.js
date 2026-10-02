@@ -1,87 +1,56 @@
-
 /*
     SOMA & CHINTHANA ❤️
-    Relationship Counter
+    Relationship Counter + Scroll Reveal
 */
-
-
-/* ================================
-   RELATIONSHIP START DATE
-================================ */
 
 const startDate = new Date("2025-12-24T00:00:00");
 
-
 function updateCounter() {
-
     const now = new Date();
-
     let difference = now - startDate;
 
-    if (difference < 0) {
-        difference = 0;
-    }
+    if (difference < 0) difference = 0;
 
     const totalSeconds = Math.floor(difference / 1000);
 
     const days = Math.floor(totalSeconds / 86400);
-
-    const hours = Math.floor(
-        (totalSeconds % 86400) / 3600
-    );
-
-    const minutes = Math.floor(
-        (totalSeconds % 3600) / 60
-    );
-
+    const hours = Math.floor((totalSeconds % 86400) / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
     const seconds = totalSeconds % 60;
 
-
     document.getElementById("days").textContent = days;
-
     document.getElementById("hours").textContent =
         String(hours).padStart(2, "0");
-
     document.getElementById("minutes").textContent =
         String(minutes).padStart(2, "0");
-
     document.getElementById("seconds").textContent =
         String(seconds).padStart(2, "0");
 }
 
-
 updateCounter();
-
 setInterval(updateCounter, 1000);
 
 
-/* ================================
-   PHOTO CARD FLIP
+/* ==============================
+   PHOTO FLIP
 ================================ */
 
 const cards = document.querySelectorAll(".photo-card");
 
-
 cards.forEach((card) => {
-
     card.addEventListener("click", () => {
-
         card.classList.toggle("flipped");
-
     });
-
 });
 
 
-/* ================================
-   HEART CLICK EFFECT
+/* ==============================
+   CLICK HEART
 ================================ */
 
 document.addEventListener("click", (event) => {
 
-    if (event.target.closest(".photo-card")) {
-        return;
-    }
+    if (event.target.closest(".photo-card")) return;
 
     const heart = document.createElement("span");
 
@@ -96,7 +65,6 @@ document.addEventListener("click", (event) => {
     heart.style.color = "#e05278";
 
     document.body.appendChild(heart);
-
 
     heart.animate(
         [
@@ -119,9 +87,88 @@ document.addEventListener("click", (event) => {
         }
     );
 
-
-    setTimeout(() => {
-        heart.remove();
-    }, 900);
-
+    setTimeout(() => heart.remove(), 900);
 });
+
+
+/* ==============================
+   SCROLL REVEAL ✨
+================================ */
+
+const revealElements = document.querySelectorAll(
+    ".hero, .counter-section, .timeline-section, .gallery-section, .timeline-card, .photo-card, section"
+);
+
+revealElements.forEach((element) => {
+    element.classList.add("scroll-reveal");
+});
+
+
+const revealObserver = new IntersectionObserver(
+    (entries) => {
+
+        entries.forEach((entry) => {
+
+            if (entry.isIntersecting) {
+
+                entry.target.classList.add("revealed");
+
+                revealObserver.unobserve(entry.target);
+            }
+
+        });
+
+    },
+    {
+        threshold: 0.12
+    }
+);
+
+
+document.querySelectorAll(".scroll-reveal").forEach((element) => {
+    revealObserver.observe(element);
+});
+
+/* ==============================
+   HIDDEN SURPRISE 💌
+================================ */
+
+const surpriseButton = document.getElementById("surpriseButton");
+const surpriseCard = document.getElementById("surpriseCard");
+
+if (surpriseButton && surpriseCard) {
+
+    surpriseButton.addEventListener("click", () => {
+
+        surpriseCard.classList.toggle("show");
+
+        if (surpriseCard.classList.contains("show")) {
+            surpriseButton.textContent = "💖 Close Surprise";
+        } else {
+            surpriseButton.textContent = "💌 Open Your Surprise";
+        }
+
+    });
+
+}
+
+/* ==============================
+   CINEMATIC OPENING 🎬
+================================ */
+
+const openingScreen = document.getElementById("openingScreen");
+const enterButton = document.getElementById("enterButton");
+
+if (openingScreen && enterButton) {
+
+    enterButton.addEventListener("click", () => {
+
+        openingScreen.classList.add("hidden");
+
+        setTimeout(() => {
+            openingScreen.style.display = "none";
+        }, 1000);
+
+    });
+
+}
