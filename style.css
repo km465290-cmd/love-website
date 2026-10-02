@@ -713,3 +713,126 @@ section h2 {
         transform: scale(1.15);
     }
 }
+
+/* ==============================
+   SMALL POLISH UPGRADES ✨
+================================ */
+
+/* Glowing section titles */
+.hero h1,
+.journey h2,
+.moments h2,
+.surprise-section h2 {
+    text-shadow: 0 0 18px rgba(255,255,255,0.35);
+    animation: titleGlow 3s ease-in-out infinite;
+}
+
+@keyframes titleGlow {
+    0%, 100% {
+        text-shadow: 0 0 10px rgba(255,255,255,0.18);
+    }
+    50% {
+        text-shadow: 0 0 24px rgba(255,255,255,0.55);
+    }
+}
+
+
+/* Tiny floating petals */
+body::before,
+body::after {
+    content: "✦";
+    position: fixed;
+    pointer-events: none;
+    z-index: 1;
+    font-size: 15px;
+    opacity: 0.35;
+}
+
+body::before {
+    left: 12%;
+    top: 35%;
+    animation: petalOne 8s ease-in-out infinite;
+}
+
+body::after {
+    right: 14%;
+    top: 65%;
+    animation: petalTwo 10s ease-in-out infinite;
+}
+
+@keyframes petalOne {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 0.15;
+    }
+
+    50% {
+        transform: translate(25px, -45px) rotate(180deg);
+        opacity: 0.5;
+    }
+}
+
+@keyframes petalTwo {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 0.15;
+    }
+
+    50% {
+        transform: translate(-30px, 40px) rotate(-180deg);
+        opacity: 0.45;
+    }
+}
+
+
+/* Gentle photo movement */
+.photo-card {
+    transition:
+        transform 0.4s ease,
+        filter 0.4s ease;
+}
+
+.photo-card:hover {
+    transform: translateY(-5px);
+    filter: brightness(1.04);
+}
+
+.photo-card:active {
+    transform: scale(0.97);
+}
+
+
+/* Small shimmer on enter button */
+.enter-button {
+    position: relative;
+    overflow: hidden;
+}
+
+.enter-button::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,0.35),
+        transparent
+    );
+
+    transform: skewX(-20deg);
+    animation: buttonShimmer 4s ease-in-out infinite;
+}
+
+@keyframes buttonShimmer {
+    0%, 60% {
+        left: -100%;
+    }
+
+    100% {
+        left: 160%;
+    }
+}
